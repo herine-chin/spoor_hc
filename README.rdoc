@@ -1,0 +1,5 @@
+This is a rebuild of Findme app.
+
+Description:
+- Attach a digital note to a real world location.
+- http://findme-app.herokuapp.com/
