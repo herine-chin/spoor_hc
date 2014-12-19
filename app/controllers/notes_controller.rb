@@ -2,10 +2,13 @@ class NotesController < ApplicationController
 
   def index
     @note = Note.new
+    @notes = Note.all
+    @user = User.find_by_id(session[:user_id])
   end
 
   def create
-    Note.create(note_params)
+    @user = User.find_by_id(session[:user_id])
+    @user.notes.create(latitude: cookies[:latitude], longitude: cookies[:longitude], note_message: note_params[:note_message])
     redirect_to notes_path
   end
 
