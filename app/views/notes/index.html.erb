@@ -1,3 +1,8 @@
 All Notes
+<%= @user.first_name %>
+<% @notes.each do |note| %>
+  <p><%= note.note_message %></p>
+<% end %>
+<%= render "create_note" %>
 <div id="map-canvas"></div>
 
