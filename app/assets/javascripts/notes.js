@@ -17,6 +17,16 @@ View.prototype = {
       var pos = new google.maps.LatLng( notes[note].latitude, notes[note].longitude );
       this.addMarker( pos, map );
     }
+  },
+  displayNoteCircle: function( pos, map ) {
+    new google.maps.Circle({
+      center: pos,
+      radius: 15,
+      fillColor: "#ff69b4",
+      fillOpacity: 0.5,
+      strokeOpacity: 0.0,
+      map: map
+    });
   }
 };
 
@@ -30,7 +40,9 @@ function Model() {
 }
 
 Model.prototype = {
-
+  saveUserPosition: function( position ) {
+    this.currentUserPos = { "latitude" : position.coords.latitude, "longitude" : position.coords.longitude };
+  }
 };
 
 function Controller( model, view ) {
@@ -42,23 +54,24 @@ Controller.prototype = {
   initializeMap: function() {
     this.model.map = this.view.createMap( this.model.mapOptions );
     if ( navigator.geolocation ) {
-      var centerMap = this.getUserPos.bind( this );
+      var centerMap = this.setUserPos.bind( this );
       centerMap();
     } else {
       alert( "geolocation not supported" );
     }
   },
-  getUserPos: function() {
+  setUserPos: function() {
     navigator.geolocation.getCurrentPosition( function( position ) {
-      var pos = new google.maps.LatLng( position.coords.latitude, position.coords.longitude );
-      this.model.map.setCenter( pos );
-      this.view.addMarker( pos, this.model.map );
-      this.model.currentUserPos = { "latitude" : position.coords.latitude, "longitude" : position.coords.longitude };
-      this.getNotes();
+        var pos = new google.maps.LatLng( position.coords.latitude, position.coords.longitude );
+        this.model.map.setCenter( pos );
+        this.view.addMarker( pos, this.model.map );
+        this.model.saveUserPosition(position);
+        this.getNotes();
+        this.view.displayNoteCircle( pos, this.model.map );
     }.bind( this ), function() {
       console.log( "geolocation fail" );
     },
-    { enableHighAccuracy: true }
+      { enableHighAccuracy: true }
     );
   },
   bindListeners: function() {
