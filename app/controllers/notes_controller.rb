@@ -2,11 +2,17 @@ class NotesController < ApplicationController
 
   def index
     @note = Note.new
-    @notes = Note.all
-    @user = User.find_by_id( session[:user_id])
+    @noteMarkers = Note.all
+    @user = User.find_by_id( session[:user_id] )
+
+    if params[:latitude]
+      @notes = Note.near( [params[:latitude], params[:longitude] ], 0.00932057 )
+    end
+
     respond_to do |format|
       format.html
-      format.json  { render :json => @notes }
+      format.json  { render :json => { :noteMarkers => @noteMarkers,
+       :localNotes => @notes } }
     end
   end
 
