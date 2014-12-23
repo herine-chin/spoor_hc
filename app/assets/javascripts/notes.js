@@ -12,7 +12,7 @@ View.prototype = {
       map: map
     });
   },
-  displayNotes: function( notes, map ) {
+  displayNoteMarkers: function( notes, map ) {
     for ( var note in notes ) {
       var pos = new google.maps.LatLng( notes[note].latitude, notes[note].longitude );
       this.addMarker( pos, map );
@@ -27,6 +27,12 @@ View.prototype = {
       strokeOpacity: 0.0,
       map: map
     });
+  },
+  displayLocalNotes: function( notes ) {
+    for ( var note in notes ) {
+      var noteTemplate = "<p>"+notes[note].note_message+"</p>"; // use template tool
+      $("#notes").append( noteTemplate );
+    }
   }
 };
 
@@ -82,12 +88,15 @@ Controller.prototype = {
   },
   getNotes: function() {
     controller = this;
+    var userPos = { latitude: this.model.currentUserPos.latitude, longitude: this.model.currentUserPos.longitude }
     $.ajax({
       url: "/notes",
       type: "GET",
+      data: userPos,
       dataType: "json"
     }).done( function( notes ) {
-      controller.view.displayNotes( notes, controller.model.map );
+      controller.view.displayNoteMarkers( notes.noteMarkers, controller.model.map );
+      controller.view.displayLocalNotes( notes.localNotes );
     }).fail( function() {
       console.log( "notes ajax fail" );
     });
