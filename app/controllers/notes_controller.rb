@@ -3,7 +3,7 @@ class NotesController < ApplicationController
   def index
     @note = Note.new
     @noteMarkers = Note.all
-    @user = User.find_by_id( session[:user_id] )
+    @user = current_user
 
     if params[:latitude]
       @notes = Note.near( [params[:latitude], params[:longitude] ], 0.00932057 )
@@ -17,7 +17,7 @@ class NotesController < ApplicationController
   end
 
   def create
-    @user = User.find_by_id( session[:user_id] )
+    @user = current_user
     @user.notes.create( latitude: cookies[:latitude], longitude: cookies[:longitude], note_message: note_params[:note_message] )
     redirect_to notes_path
   end
