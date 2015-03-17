@@ -1,5 +1,4 @@
 <%= form_for @note do |f| %>
-  <%= f.label "Note" %>:
-  <%= f.text_field :note_message %>
-  <%= f.submit "Leave a note", :id => "note_submit" %>
+  <%= f.text_field :note_message, :placeholder => "Enter new note" %>
+  <%= f.submit "SUBMIT NOTE", :id => "note_submit" %>
 <% end %>
