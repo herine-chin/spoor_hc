@@ -2,8 +2,8 @@
 <div class="sign_in_form">
   <%= form_for :session, url: sessions_path do |f| %>
 
-    <%= f.text_field :email, :placeholder => "Email" %><br />
-    <%= f.text_field :password, :placeholder => "Password" %><br />
+    <%= f.email_field :email, :placeholder => "Email" %><br />
+    <%= f.password_field :password, :placeholder => "Password" %><br />
 
     <%= f.submit "SIGN IN"%>
   <% end %>
