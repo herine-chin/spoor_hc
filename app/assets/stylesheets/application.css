@@ -18,3 +18,16 @@
 html, body, #map-canvas {
   height: 100%; margin: 0; padding: 0;
 }
+
+.sign_in_form {
+  text-align: center;
+}
+
+.sign_up_form {
+  text-align: center;
+}
+
+.welcome_message {
+  text-align: center;
+  font-family: Helvetica;
+}

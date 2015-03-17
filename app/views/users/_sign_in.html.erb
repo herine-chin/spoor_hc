@@ -1,10 +1,10 @@
-<%= form_for :session, url: sessions_path do |f| %>
 
-  <%= f.label :email %>:
-  <%= f.text_field :email %><br />
+<div class="sign_in_form">
+  <%= form_for :session, url: sessions_path do |f| %>
 
-  <%= f.label :password %>:
-  <%= f.text_field :password %><br />
+    <%= f.text_field :email, :placeholder => "Email" %><br />
+    <%= f.text_field :password, :placeholder => "Password" %><br />
 
-  <%= f.submit "Sign In!"%>
-<% end %>
+    <%= f.submit "SIGN IN"%>
+  <% end %>
+</div>
