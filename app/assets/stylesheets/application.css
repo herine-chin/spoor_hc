@@ -39,3 +39,14 @@ html, body, #map-canvas {
   text-align: center;
   margin-top: 2%;
 }
+.note_info {
+  font-size: 10px;
+  opacity: 0.8;
+  font-style: italic;
+}
+.notes_nearby {
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+}

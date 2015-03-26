@@ -28,9 +28,9 @@ View.prototype = {
       map: map
     });
   },
-  displayLocalNotes: function( notes ) {
+  displayLocalNotes: function( notes, user ) {
     for ( var note in notes ) {
-      var noteTemplate = "<p>"+notes[note].note_message+"</p>"; // use template tool
+      var noteTemplate = "<div class='notes_nearby'> <p>"+notes[note].note_message+"</p>" + "<div class='note_info'> Posted by: " + user.first_name + " at " + notes[note].created_at + "</div></div>"; // use template tool
       $("#notes").append( noteTemplate );
     }
   }
@@ -88,7 +88,7 @@ Controller.prototype = {
   },
   getNotes: function() {
     controller = this;
-    var userPos = { latitude: this.model.currentUserPos.latitude, longitude: this.model.currentUserPos.longitude }
+    var userPos = { latitude: this.model.currentUserPos.latitude, longitude: this.model.currentUserPos.longitude };
     $.ajax({
       url: "/notes",
       type: "GET",
@@ -96,7 +96,7 @@ Controller.prototype = {
       dataType: "json"
     }).done( function( notes ) {
       controller.view.displayNoteMarkers( notes.noteMarkers, controller.model.map );
-      controller.view.displayLocalNotes( notes.localNotes );
+      controller.view.displayLocalNotes( notes.localNotes, notes.user );
     }).fail( function() {
       console.log( "notes ajax fail" );
     });

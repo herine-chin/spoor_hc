@@ -12,7 +12,7 @@ class NotesController < ApplicationController
     respond_to do |format|
       format.html
       format.json  { render :json => { :noteMarkers => @noteMarkers,
-       :localNotes => @notes } }
+       :localNotes => @notes, :user => @user } }
     end
   end
 
