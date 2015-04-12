@@ -18,7 +18,7 @@ class NotesController < ApplicationController
 
   def create
     @user = current_user
-    @user.notes.create( latitude: cookies[:latitude], longitude: cookies[:longitude], note_message: note_params[:note_message] )
+    @user.notes.create( latitude: cookies[:latitude], longitude: cookies[:longitude], note_message: note_params[:note_message], note_image: note_params[:note_image])
     redirect_to notes_path
   end
 
@@ -26,6 +26,7 @@ class NotesController < ApplicationController
 
   def note_params
     params.require( :note ).permit( :note_message )
+    params.require( :note ).permit( :note_image )
   end
 
 end

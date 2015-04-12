@@ -1,4 +1,6 @@
 <%= form_for @note do |f| %>
   <%= f.text_field :note_message, :placeholder => "Enter new note" %>
+  <%= f.file_field :note_image %>
   <%= f.submit "SUBMIT NOTE", :id => "note_submit" %>
 <% end %>
+

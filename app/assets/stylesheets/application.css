@@ -29,11 +29,11 @@ html, body, #map-canvas {
   font-family: Helvetica;
 }
 #map-canvas {
-  width: 50%;
+  width: 60%;
   float: right;
 }
 .all_notes {
-  width: 50%;
+  width: 40%;
   float: left;
   font-family: Helvetica;
   text-align: center;
